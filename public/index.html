@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CraveBite — Online Food Delivery (₹ INR)</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <div class="brand-group">
+        <a href="/" class="brand" aria-label="CraveBite Home">
+          <span class="brand-icon" aria-hidden="true">🍲</span>
+          <span>
+            <span class="brand-name">CraveBite</span>
+            <span class="brand-tag">Fresh &amp; Fast • ₹ INR</span>
+          </span>
+        </a>
+
+        <label class="location-picker" title="Delivery City">
+          <span class="loc-pin" aria-hidden="true">📍</span>
+          <select id="citySelect" aria-label="Select delivery city">
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi NCR">Delhi NCR</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Pune">Pune</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="search-wrap">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search biryani, masala dosa, butter chicken, or restaurant..."
+          aria-label="Search dishes or restaurants"
+        />
+      </div>
+
+      <nav class="nav-actions" aria-label="Primary actions">
+        <button id="openCouponsBtn" class="btn btn-ghost" type="button">
+          <span aria-hidden="true">🏷️</span>
+          <span>Coupons</span>
+          <span class="pill-count" id="couponBadge">5</span>
+        </button>
+
+        <button id="openCartBtn" class="btn btn-cart" type="button">
+          <span aria-hidden="true">🛒</span>
+          <span id="navCartLabel">Cart</span>
+          <span class="pill-count dark" id="navCartCount">0</span>
+        </button>
+
+        <div id="authLoggedOut" class="auth-buttons">
+          <button id="openLoginBtn" class="btn btn-outline" type="button">Log In</button>
+          <button id="openSignupBtn" class="btn btn-primary" type="button">Sign Up</button>
+        </div>
+
+        <div id="authLoggedIn" class="auth-user hidden">
+          <button id="openOrdersBtn" class="btn btn-ghost" type="button">
+            <span aria-hidden="true">📦</span>
+            <span>My Orders</span>
+          </button>
+          <div class="user-chip" id="userChip">
+            <span class="user-avatar" id="userAvatar">A</span>
+            <span class="user-name" id="userName">User</span>
+          </div>
+          <button id="logoutBtn" class="btn btn-outline btn-logout" type="button">Log Out</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="hero-eyebrow">⚡ 25-Min Express Kitchen Delivery Across India</span>
+          <h1>Craving something iconic? Get it hot at your door.</h1>
+          <p>
+            From Dum Biryanis and Old Delhi Butter Chicken to crisp Ghee Masala Dosas — order from curated kitchens with transparent pricing in <strong>Indian Rupees (₹)</strong>.
+          </p>
+          <div class="hero-highlights">
+            <div class="highlight-pill">✅ Free delivery above ₹799</div>
+            <div class="highlight-pill">🛡️ Hygienic sealed packaging</div>
+            <div class="highlight-pill">💳 UPI, Cards &amp; Cash on Delivery</div>
+          </div>
+        </div>
+
+        <aside class="hero-offers" aria-label="Featured Coupons">
+          <div class="offers-header">
+            <h2>Today's Coupon Codes</h2>
+            <span class="offers-sub">Click to apply to cart</span>
+          </div>
+          <div id="heroCouponList" class="hero-coupon-list"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="menu-section container">
+      <div id="recommendationsBlock" class="recommendations-block">
+        <div class="restaurants-header">
+          <div>
+            <h2>✨ Recommended For You</h2>
+            <p id="recSubheading" class="muted-text">Automatic picks tailored to your city &amp; cravings</p>
+          </div>
+          <span class="auto-badge">Auto Picks</span>
+        </div>
+        <div id="recommendationsGrid" class="recommendations-grid"></div>
+      </div>
+
+      <div class="restaurants-block">
+        <div class="restaurants-header">
+          <div>
+            <h2 id="restaurantsHeading">Nearby Restaurants in Bengaluru</h2>
+            <p class="muted-text">Sorted closest to you — click any restaurant name to view its food items</p>
+          </div>
+          <button id="clearRestaurantBtn" class="btn btn-outline btn-mini hidden" type="button">
+            Show All Restaurants
+          </button>
+        </div>
+        <div id="restaurantCards" class="restaurant-cards" role="list" aria-label="Nearby Restaurants"></div>
+      </div>
+
+      <div class="controls-bar">
+        <div id="categoryPills" class="category-pills" role="tablist" aria-label="Food Categories"></div>
+
+        <div class="filter-controls">
+          <label class="veg-toggle">
+            <input type="checkbox" id="vegOnlyToggle" />
+            <span class="toggle-track"></span>
+            <span class="veg-dot-label">Pure Veg Only</span>
+          </label>
+
+          <select id="sortSelect" class="sort-select" aria-label="Sort dishes">
+            <option value="recommended">Sort: Recommended</option>
+            <option value="price-asc">Price: Low to High (₹)</option>
+            <option value="price-desc">Price: High to Low (₹)</option>
+            <option value="rating-desc">Top Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="menu-status-row">
+        <h2 id="menuHeading">All Popular Dishes</h2>
+        <span id="menuCount" class="muted-text"></span>
+      </div>
+
+      <div id="menuGrid" class="menu-grid"></div>
+      <div id="emptyMenuState" class="empty-state hidden">
+        <p>No dishes match your search or filters.</p>
+        <button id="resetFiltersBtn" class="btn btn-outline" type="button">Reset Filters</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>CraveBite</strong> — Node.js Online Food Delivery • All prices in INR (₹)
+      </div>
+      <div class="muted-text">
+        Demo Account: <code>demo@cravebite.in</code> / <code>Demo@123</code>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart & Checkout Drawer -->
+  <div id="cartBackdrop" class="drawer-backdrop hidden"></div>
+  <aside id="cartDrawer" class="cart-drawer hidden" aria-label="Shopping Cart and Checkout">
+    <div class="drawer-header">
+      <div>
+        <h2>Your Food Cart</h2>
+        <p id="cartHeaderSub" class="muted-text">Prices in Indian Rupees (₹)</p>
+      </div>
+      <button id="closeCartBtn" class="icon-close" type="button" aria-label="Close cart">✕</button>
+    </div>
+
+    <div id="cartEmpty" class="cart-empty">
+      <div class="empty-plate" aria-hidden="true">🍽️</div>
+      <h3>Your cart is empty</h3>
+      <p>Add delicious dishes from the menu and apply a coupon to save on your order.</p>
+      <button id="browseMenuBtn" class="btn btn-primary" type="button">Browse Menu</button>
+    </div>
+
+    <div id="cartBody" class="cart-body hidden">
+      <div id="cartItemsList" class="cart-items-list"></div>
+
+      <!-- Coupon Box -->
+      <div class="coupon-box">
+        <div class="coupon-box-header">
+          <span>🏷️ Apply Coupon</span>
+          <button id="drawerCouponsToggle" class="link-btn" type="button">View all offers</button>
+        </div>
+        <div class="coupon-input-row">
+          <input
+            id="couponInput"
+            type="text"
+            placeholder="Enter code e.g. WELCOME50"
+            aria-label="Coupon code"
+          />
+          <button id="applyCouponBtn" class="btn btn-outline" type="button">Apply</button>
+        </div>
+        <div id="couponFeedback" class="coupon-feedback hidden"></div>
+        <div id="appliedCouponChip" class="applied-coupon-chip hidden">
+          <span>
+            <strong id="appliedCouponCode"></strong> applied —
+            <span id="appliedCouponSavings"></span>
+          </span>
+          <button id="removeCouponBtn" class="link-btn danger" type="button">Remove</button>
+        </div>
+      </div>
+
+      <!-- Bill Breakdown -->
+      <div class="bill-card">
+        <h3>Bill Details (INR)</h3>
+        <div class="bill-row">
+          <span>Item Total</span>
+          <span id="billSubtotal">₹0.00</span>
+        </div>
+        <div class="bill-row">
+          <span>Delivery Partner Fee <small class="muted-text">(Free ≥ ₹799)</small></span>
+          <span id="billDelivery">₹40.00</span>
+        </div>
+        <div class="bill-row">
+          <span>Packaging &amp; Platform Fee</span>
+          <span id="billPackaging">₹15.00</span>
+        </div>
+        <div class="bill-row discount hidden" id="billDiscountRow">
+          <span>Coupon Discount (<span id="billDiscountCode"></span>)</span>
+          <span id="billDiscount">-₹0.00</span>
+        </div>
+        <div class="bill-row">
+          <span>GST (5%)</span>
+          <span id="billGst">₹0.00</span>
+        </div>
+        <div class="bill-divider"></div>
+        <div class="bill-row total">
+          <span>To Pay</span>
+          <span id="billTotal">₹0.00</span>
+        </div>
+        <div id="billSavingsBanner" class="savings-banner hidden"></div>
+      </div>
+
+      <!-- Checkout Details -->
+      <form id="checkoutForm" class="checkout-form">
+        <h3>Delivery &amp; Payment</h3>
+        <label class="field">
+          <span>Delivery Address</span>
+          <textarea
+            id="deliveryAddressInput"
+            rows="2"
+            placeholder="House/Flat no., Building, Street, Landmark..."
+            required
+          >Flat 402, Indiranagar 100ft Road, Bengaluru 560038</textarea>
+        </label>
+
+        <label class="field">
+          <span>Payment Method</span>
+          <select id="paymentMethodSelect">
+            <option value="UPI">UPI (GPay / PhonePe / Paytm)</option>
+            <option value="Cash on Delivery">Cash on Delivery</option>
+            <option value="Credit / Debit Card">Credit / Debit Card</option>
+          </select>
+        </label>
+
+        <div id="checkoutError" class="form-error hidden"></div>
+
+        <button id="placeOrderBtn" class="btn btn-primary btn-full" type="submit">
+          Place Order
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Auth Modal -->
+  <div id="authModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+      <div class="modal-header">
+        <h2 id="authModalTitle">Welcome to CraveBite</h2>
+        <button id="closeAuthModalBtn" class="icon-close" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="loginTabBtn" class="auth-tab active" type="button">Log In</button>
+        <button id="signupTabBtn" class="auth-tab" type="button">Sign Up</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <label class="field">
+          <span>Email Address</span>
+          <input id="loginEmail" type="email" placeholder="you@example.com" required />
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="loginPassword" type="password" placeholder="Enter your password" required />
+        </label>
+        <div id="loginError" class="form-error hidden"></div>
+        <button class="btn btn-primary btn-full" type="submit">Log In</button>
+        <button id="fillDemoBtn" class="btn btn-outline btn-full" type="button">
+          Use Demo Account (demo@cravebite.in)
+        </button>
+      </form>
+
+      <form id="signupForm" class="auth-form hidden">
+        <label class="field">
+          <span>Full Name</span>
+          <input id="signupName" type="text" placeholder="e.g. Priya Nair" required />
+        </label>
+        <label class="field">
+          <span>Email Address</span>
+          <input id="signupEmail" type="email" placeholder="priya@example.com" required />
+        </label>
+        <label class="field">
+          <span>Phone Number (Optional)</span>
+          <input id="signupPhone" type="tel" placeholder="+91 98765 43210" />
+        </label>
+        <label class="field">
+          <span>Password (min 6 characters)</span>
+          <input id="signupPassword" type="password" minlength="6" placeholder="Create a password" required />
+        </label>
+        <div id="signupError" class="form-error hidden"></div>
+        <button class="btn btn-primary btn-full" type="submit">Create Account &amp; Log In</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Coupons Modal -->
+  <div id="couponsModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="couponsModalTitle">
+      <div class="modal-header">
+        <div>
+          <h2 id="couponsModalTitle">Available Coupons &amp; Promo Codes</h2>
+          <p class="muted-text">All discounts are calculated in Indian Rupees (₹)</p>
+        </div>
+        <button id="closeCouponsModalBtn" class="icon-close" type="button" aria-label="Close">✕</button>
+      </div>
+      <div id="couponsModalList" class="coupons-modal-list"></div>
+    </div>
+  </div>
+
+  <!-- My Orders Modal -->
+  <div id="ordersModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="ordersModalTitle">
+      <div class="modal-header">
+        <div>
+          <h2 id="ordersModalTitle">My Orders</h2>
+          <p class="muted-text">Your recent CraveBite deliveries</p>
+        </div>
+        <button id="closeOrdersModalBtn" class="icon-close" type="button" aria-label="Close">✕</button>
+      </div>
+      <div id="ordersModalList" class="orders-modal-list"></div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div id="orderSuccessBackdrop" class="modal-backdrop hidden">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="orderSuccessTitle">
+      <div class="modal-header">
+        <h2 id="orderSuccessTitle">Order Confirmed! 🎉</h2>
+        <button id="closeOrderSuccessBtn" class="icon-close" type="button" aria-label="Close">✕</button>
+      </div>
+      <div id="orderSuccessBody" class="order-success-body"></div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

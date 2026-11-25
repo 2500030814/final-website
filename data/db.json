@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": "usr_demo_001",
+      "name": "Aarav Sharma",
+      "email": "demo@cravebite.in",
+      "phone": "+91 98765 43210",
+      "passwordHash": "24159375572bfff77c1d4911cc1f9519:34299707b37588620b6e73bbb39c9089d1686368f3545f503142d5631c6e0634e21aa71184b06d76c35e657fdbef6ef44ffdde0dd5f1246bd4cef958a2d0c746",
+      "createdAt": "2026-11-25T13:57:18.217Z"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "cabbc8900ed131bc743c3ad9441dca111a461a1757e89f524b3dce2486feb752",
+      "userId": "usr_demo_001",
+      "createdAt": 1795615221022,
+      "expiresAt": 1796220021022
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-104821",
+      "userId": "usr_demo_001",
+      "customerName": "Aarav Sharma",
+      "deliveryAddress": "Flat 402, Indiranagar 100ft Road, Bengaluru 560038",
+      "city": "Bengaluru",
+      "paymentMethod": "UPI",
+      "status": "Delivered",
+      "currency": "INR",
+      "items": [
+        {
+          "id": "hyd-chicken-biryani",
+          "name": "Hyderabadi Chicken Dum Biryani",
+          "restaurant": "Nizami Handi",
+          "isVeg": false,
+          "unitPriceInr": 329,
+          "quantity": 1,
+          "lineTotalInr": 329
+        },
+        {
+          "id": "kesar-rasmalai",
+          "name": "Kesar Pistachio Rasmalai (2 Pcs)",
+          "restaurant": "Mithai Mahal",
+          "isVeg": true,
+          "unitPriceInr": 129,
+          "quantity": 1,
+          "lineTotalInr": 129
+        }
+      ],
+      "itemSubtotalInr": 458,
+      "deliveryFeeInr": 40,
+      "packagingFeeInr": 15,
+      "couponCode": "FEAST20",
+      "couponDiscountInr": 91.6,
+      "deliveryDiscountInr": 0,
+      "gstInr": 18.32,
+      "grandTotalInr": 439.72,
+      "createdAt": "2026-11-23T13:57:18.263Z"
+    }
+  ]
+}

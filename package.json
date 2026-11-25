@@ -1,0 +1,14 @@
+{
+  "name": "cravebite",
+  "version": "1.0.0",
+  "description": "Online food delivery website with Node.js, INR pricing, coupons, and session-based login/logout",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test tests/api.test.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
