@@ -7,6 +7,14 @@
       "phone": "+91 98765 43210",
       "passwordHash": "24159375572bfff77c1d4911cc1f9519:34299707b37588620b6e73bbb39c9089d1686368f3545f503142d5631c6e0634e21aa71184b06d76c35e657fdbef6ef44ffdde0dd5f1246bd4cef958a2d0c746",
       "createdAt": "2026-11-25T13:57:18.217Z"
+    },
+    {
+      "id": "usr_e87fa0e7097a",
+      "name": "Bukkasamudram Medha Reddy",
+      "email": "medhareddy7002@gmail.com",
+      "phone": "+919493400327",
+      "passwordHash": "d4698b4f493c9e3229edd2d7805c8f59:0f7802b9ec4664933eba9e35ee9a8cc4c682267e0959dce7a6f2afdfd0fc1e0ad2c9fd32afc592de2ea8855cbd2cef9f97a9af87efe0d9aa2b1f1eb5ad32b235",
+      "createdAt": "2026-11-25T22:07:32.702Z"
     }
   ],
   "sessions": [
@@ -18,6 +26,45 @@
     }
   ],
   "orders": [
+    {
+      "id": "ORD-916655",
+      "status": "Preparing",
+      "createdAt": "2026-11-25T18:06:22.355Z",
+      "userId": "usr_demo_001",
+      "customerName": "Aarav Sharma",
+      "deliveryAddress": "Flat 402, Indiranagar 100ft Road, Bengaluru 560038",
+      "city": "Delhi NCR",
+      "paymentMethod": "Credit / Debit Card",
+      "currency": "INR",
+      "items": [
+        {
+          "id": "hyd-chicken-biryani",
+          "name": "Hyderabadi Chicken Dum Biryani",
+          "restaurant": "Nizami Handi",
+          "isVeg": false,
+          "unitPriceInr": 329,
+          "quantity": 1,
+          "lineTotalInr": 329
+        },
+        {
+          "id": "kesar-rasmalai",
+          "name": "Kesar Pistachio Rasmalai (2 Pcs)",
+          "restaurant": "Mithai Mahal",
+          "isVeg": true,
+          "unitPriceInr": 129,
+          "quantity": 1,
+          "lineTotalInr": 129
+        }
+      ],
+      "itemSubtotalInr": 458,
+      "deliveryFeeInr": 40,
+      "packagingFeeInr": 15,
+      "couponCode": "WELCOME50",
+      "couponDiscountInr": 50,
+      "deliveryDiscountInr": 0,
+      "gstInr": 20.4,
+      "grandTotalInr": 483.4
+    },
     {
       "id": "ORD-104821",
       "userId": "usr_demo_001",
